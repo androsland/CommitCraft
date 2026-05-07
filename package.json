@@ -4,6 +4,7 @@
   "description": "Generate Git commit messages using AI (Claude or Ollama)",
   "version": "0.1.0",
   "publisher": "androsland",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/androsland/CommitCraft.git"
