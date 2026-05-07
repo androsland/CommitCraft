@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-const SECRET_KEY = 'commitcraft.apiKey';
+const SECRET_KEY = 'git-commitcraft.apiKey';
 
 export async function getApiKey(secrets: vscode.SecretStorage): Promise<string | undefined> {
   return secrets.get(SECRET_KEY);

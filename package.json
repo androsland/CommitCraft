@@ -1,6 +1,6 @@
 {
-  "name": "commitcraft",
-  "displayName": "CommitCraft",
+  "name": "git-commitcraft",
+  "displayName": "CommitCraft - AI Commit Messages Helper",
   "description": "Generate Git commit messages using AI (Claude or Ollama)",
   "version": "0.1.1",
   "publisher": "androsland",
@@ -21,31 +21,31 @@
   "contributes": {
     "commands": [
       {
-        "command": "commitcraft.generate",
+        "command": "git-commitcraft.generate",
         "title": "CommitCraft: Generate Commit Message",
         "icon": "$(sparkle)"
       },
       {
-        "command": "commitcraft.setApiKey",
+        "command": "git-commitcraft.setApiKey",
         "title": "CommitCraft: Set API Key"
       },
       {
-        "command": "commitcraft.editApiKey",
+        "command": "git-commitcraft.editApiKey",
         "title": "CommitCraft: Edit API Key"
       },
       {
-        "command": "commitcraft.selectModel",
+        "command": "git-commitcraft.selectModel",
         "title": "CommitCraft: Select Model"
       },
       {
-        "command": "commitcraft.deleteApiKey",
+        "command": "git-commitcraft.deleteApiKey",
         "title": "CommitCraft: Delete API Key"
       }
     ],
     "configuration": {
       "title": "CommitCraft",
       "properties": {
-        "commitcraft.provider": {
+        "git-commitcraft.provider": {
           "type": "string",
           "enum": [
             "claude",
@@ -58,12 +58,12 @@
           "default": "claude",
           "markdownDescription": "AI provider for commit message generation. Switch between **Claude** (cloud) and **Ollama** (local)."
         },
-        "commitcraft.ollamaHost": {
+        "git-commitcraft.ollamaHost": {
           "type": "string",
           "default": "http://localhost:11434",
           "description": "Ollama server URL. The default works for a standard local installation."
         },
-        "commitcraft.ollamaModel": {
+        "git-commitcraft.ollamaModel": {
           "type": "string",
           "default": "",
           "markdownDescription": "The Ollama model to use. Click the model indicator in the status bar (bottom-right) or run **CommitCraft: Select Model** from the Command Palette to pick from your installed models. The chosen model is saved here automatically."
@@ -73,7 +73,7 @@
     "menus": {
       "scm/title": [
         {
-          "command": "commitcraft.generate",
+          "command": "git-commitcraft.generate",
           "group": "navigation"
         }
       ]

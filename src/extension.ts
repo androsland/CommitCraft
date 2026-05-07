@@ -25,7 +25,7 @@ function modelBarLabel(provider: string, ollamaModel: string): string {
 export function activate(context: vscode.ExtensionContext) {
   // Persistent right-side status bar showing current model — click to change
   const modelBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  modelBar.command = 'commitcraft.selectModel';
+  modelBar.command = 'git-commitcraft.selectModel';
   modelBar.tooltip = 'Click to change AI model for commit message generation';
   context.subscriptions.push(modelBar);
 
@@ -45,19 +45,19 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('commitcraft.setApiKey', () =>
+    vscode.commands.registerCommand('git-commitcraft.setApiKey', () =>
       setApiKey(context.secrets)
     ),
 
-    vscode.commands.registerCommand('commitcraft.editApiKey', () =>
+    vscode.commands.registerCommand('git-commitcraft.editApiKey', () =>
       setApiKey(context.secrets)
     ),
 
-    vscode.commands.registerCommand('commitcraft.deleteApiKey', () =>
+    vscode.commands.registerCommand('git-commitcraft.deleteApiKey', () =>
       deleteApiKey(context.secrets)
     ),
 
-    vscode.commands.registerCommand('commitcraft.selectModel', async () => {
+    vscode.commands.registerCommand('git-commitcraft.selectModel', async () => {
       const { ollamaHost } = getConfig();
       const apiKey = await getApiKey(context.secrets);
 
@@ -116,7 +116,7 @@ export function activate(context: vscode.ExtensionContext) {
       refreshModelBar();
     }),
 
-    vscode.commands.registerCommand('commitcraft.generate', async () => {
+    vscode.commands.registerCommand('git-commitcraft.generate', async () => {
       const { provider, ollamaHost, ollamaModel } = getConfig();
       let apiKey: string | undefined;
 
@@ -127,7 +127,7 @@ export function activate(context: vscode.ExtensionContext) {
             'Select Model'
           );
           if (action === 'Select Model') {
-            await vscode.commands.executeCommand('commitcraft.selectModel');
+            await vscode.commands.executeCommand('git-commitcraft.selectModel');
           }
           return;
         }
