@@ -1,5 +1,3 @@
-import Anthropic from '@anthropic-ai/sdk';
-
 const MODEL = 'claude-haiku-4-5-20251001';
 export const CLAUDE_MODEL_DISPLAY = 'Claude Haiku 4.5';
 const MAX_DIFF_CHARS = 8000;
@@ -22,15 +20,27 @@ export function buildPrompt(diff: string, recentCommits: string): string {
 }
 
 export async function callClaude(apiKey: string, prompt: string): Promise<string> {
-  const client = new Anthropic({ apiKey });
-
-  const message = await client.messages.create({
-    model: MODEL,
-    max_tokens: 256,
-    messages: [{ role: 'user', content: prompt }],
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 256,
+      messages: [{ role: 'user', content: prompt }],
+    }),
   });
 
-  const block = message.content[0];
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Anthropic API error ${res.status}: ${err}`);
+  }
+
+  const data = await res.json() as { content: { type: string; text: string }[] };
+  const block = data.content[0];
   if (block.type !== 'text') {
     throw new Error('Unexpected response type from Claude.');
   }
