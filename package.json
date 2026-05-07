@@ -1,0 +1,89 @@
+{
+  "name": "commitcraft",
+  "displayName": "CommitCraft",
+  "description": "Generate Git commit messages using AI (Claude or Ollama)",
+  "version": "0.1.0",
+  "publisher": "androsland",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/androsland/CommitCraft.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "commitcraft.generate",
+        "title": "CommitCraft: Generate Commit Message",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "commitcraft.setApiKey",
+        "title": "CommitCraft: Set API Key"
+      },
+      {
+        "command": "commitcraft.editApiKey",
+        "title": "CommitCraft: Edit API Key"
+      },
+      {
+        "command": "commitcraft.selectModel",
+        "title": "CommitCraft: Select Model"
+      },
+      {
+        "command": "commitcraft.deleteApiKey",
+        "title": "CommitCraft: Delete API Key"
+      }
+    ],
+    "configuration": {
+      "title": "CommitCraft",
+      "properties": {
+        "commitcraft.provider": {
+          "type": "string",
+          "enum": ["claude", "ollama"],
+          "markdownEnumDescriptions": [
+            "Anthropic Claude API. Requires an API key — run **CommitCraft: Set API Key** from the Command Palette to store it securely.",
+            "Local Ollama instance. Free, no API key needed. Ollama must be running on this machine (or at the configured host URL)."
+          ],
+          "default": "claude",
+          "markdownDescription": "AI provider for commit message generation. Switch between **Claude** (cloud) and **Ollama** (local)."
+        },
+        "commitcraft.ollamaHost": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama server URL. The default works for a standard local installation."
+        },
+        "commitcraft.ollamaModel": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "The Ollama model to use. Click the model indicator in the status bar (bottom-right) or run **CommitCraft: Select Model** from the Command Palette to pick from your installed models. The chosen model is saved here automatically."
+        }
+      }
+    },
+    "menus": {
+      "scm/title": [
+        {
+          "command": "commitcraft.generate",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}
