@@ -7,7 +7,7 @@ import { isOllamaRunning, getOllamaModels, callOllama } from './ollama';
 type ModelPickItem = vscode.QuickPickItem & { providerId?: string };
 
 function getConfig() {
-  const cfg = vscode.workspace.getConfiguration('commitcraft');
+  const cfg = vscode.workspace.getConfiguration('git-commitcraft');
   return {
     provider: cfg.get<string>('provider', 'claude'),
     ollamaHost: cfg.get<string>('ollamaHost', 'http://localhost:11434'),
@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration('commitcraft')) {
+      if (e.affectsConfiguration('git-commitcraft')) {
         refreshModelBar();
       }
     })
@@ -105,7 +105,7 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      const cfg = vscode.workspace.getConfiguration('commitcraft');
+      const cfg = vscode.workspace.getConfiguration('git-commitcraft');
       if (picked.providerId === 'claude') {
         await cfg.update('provider', 'claude', vscode.ConfigurationTarget.Global);
       } else {

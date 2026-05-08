@@ -2,7 +2,7 @@
   "name": "git-commitcraft",
   "displayName": "CommitCraft - AI Commit Messages Helper",
   "description": "Generate Git commit messages using AI (Claude or Ollama)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "androsland",
   "icon": "icon.png",
   "repository": {
