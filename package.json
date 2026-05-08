@@ -2,7 +2,7 @@
   "name": "git-commitcraft",
   "displayName": "CommitCraft - AI Commit Messages Helper",
   "description": "Generate Git commit messages using AI (Claude or Ollama)",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "androsland",
   "icon": "icon.png",
   "repository": {
@@ -24,6 +24,11 @@
         "command": "git-commitcraft.generate",
         "title": "CommitCraft: Generate Commit Message",
         "icon": "$(sparkle)"
+      },
+      {
+        "command": "git-commitcraft.generating",
+        "title": "CommitCraft: Generating...",
+        "icon": "$(loading~spin)"
       },
       {
         "command": "git-commitcraft.setApiKey",
@@ -74,7 +79,13 @@
       "scm/title": [
         {
           "command": "git-commitcraft.generate",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "!git-commitcraft.isGenerating"
+        },
+        {
+          "command": "git-commitcraft.generating",
+          "group": "navigation",
+          "when": "git-commitcraft.isGenerating"
         }
       ]
     }

@@ -11,9 +11,12 @@ interface GitAPI {
 }
 interface Repository {
   rootUri: vscode.Uri;
-  inputBox: { value: string };
+  inputBox: { value: string; buttons?: any[][] };
   log(options: { maxEntries: number }): Promise<Commit[]>;
   state: RepositoryState;
+}
+interface GitAPIExtended extends GitAPI {
+  onDidOpenRepository?(handler: (repo: Repository) => void): vscode.Disposable;
 }
 interface RepositoryState {
   workingTreeChanges: Change[];
@@ -37,7 +40,7 @@ function runGit(gitPath: string, args: string[], cwd: string): string {
   }
 }
 
-function getGitAPI(): GitAPI {
+export function getGitAPI(): GitAPIExtended {
   const ext = vscode.extensions.getExtension<GitExtension>('vscode.git');
   if (!ext) {
     throw new Error('No git repository found in workspace.');

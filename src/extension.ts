@@ -116,6 +116,8 @@ export function activate(context: vscode.ExtensionContext) {
       refreshModelBar();
     }),
 
+    vscode.commands.registerCommand('git-commitcraft.generating', () => {}),
+
     vscode.commands.registerCommand('git-commitcraft.generate', async () => {
       const { provider, ollamaHost, ollamaModel } = getConfig();
       let apiKey: string | undefined;
@@ -192,6 +194,7 @@ export function activate(context: vscode.ExtensionContext) {
       const spinner = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
       spinner.text = `$(loading~spin) Generating via ${modelDesc}...`;
       spinner.show();
+      vscode.commands.executeCommand('setContext', 'git-commitcraft.isGenerating', true);
 
       try {
         let message: string;
@@ -207,6 +210,7 @@ export function activate(context: vscode.ExtensionContext) {
         );
       } finally {
         spinner.dispose();
+        vscode.commands.executeCommand('setContext', 'git-commitcraft.isGenerating', false);
       }
     })
   );
