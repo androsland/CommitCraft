@@ -62,6 +62,16 @@ Supports **Anthropic Claude** (cloud) and **Ollama** (local, free).
 
 ---
 
+## Changelog
+
+### 0.1.3
+- The sparkle button now animates into a loading spinner while the commit message is being generated, then reverts once done.
+
+### 0.1.2 and earlier
+- Initial release with Claude and Ollama support.
+
+---
+
 ## License
 
 MIT
